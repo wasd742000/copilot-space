@@ -106,7 +106,10 @@ def generate_video_temporal_graph(video_path, video_id, args, output_path):
                   edge_attr=torch.tensor(edge_attr, dtype=torch.float32))
 
     # Save graph
-    torch.save(graphs, os.path.join(output_path, f'{video_id}.pt'))
+    graph_path = os.path.join(output_path, f'{video_id}.pt')
+    torch.save(graphs, graph_path)
+    if not os.path.exists(graph_path):
+        raise FileNotFoundError(f"Graph file not found: {graph_path}")
 
 
 if __name__ == "__main__":
