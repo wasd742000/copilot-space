@@ -87,6 +87,8 @@ def process_video(input_video, output_dir, model_path, cfg_path, percentile=80, 
         # Ensure model and tensors are placed on GPU if available
         with tf.device(device):
             predictions = predict_single(cfg, temp_graph_dir, model_path)
+            if not predictions:
+                raise ValueError(f"Predictions format is unexpected: {predictions}")
 
         # Step 3: Extract keyframes
         print("Extracting keyframes...")
